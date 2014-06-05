@@ -5,10 +5,10 @@ apply from: "$rootDir/gradle/downloadWar.gradle"
 
 ext {
     warFile = configurations.todo.singleFile
-    tomcatRemoteDir = '/opt/apache-tomcat-7.0.42'
+    tomcatRemoteDir = '/tmp/tomcat'
 
     userHome = System.properties['user.home']
-    vagrantKeyFile = file("$userHome/.vagrant.d/insecure_private_key")
+    vagrantKeyFile = file("$userHome/.ssh/id_rsa")
     remoteTmpDir = "$config.server.username@$config.server.hostname:/tmp"
 }
 
@@ -37,7 +37,7 @@ tasks.withType(SshExec) {
 }
 
 task shutdownTomcat(type: SshExec, dependsOn: copyWarToServer) {
-    command = "sudo -u tomcat $tomcatRemoteDir/bin/shutdown.sh"
+    command = "sudo -u cchen $tomcatRemoteDir/bin/shutdown.sh"
         
     doFirst {
         logger.quiet "Shutting down remote Tomcat."
@@ -45,11 +45,11 @@ task shutdownTomcat(type: SshExec, dependsOn: copyWarToServer) {
 }
 
 task deleteTomcatWebappsDir(type: SshExec, dependsOn: shutdownTomcat) {
-    command = "sudo -u tomcat rm -rf $tomcatRemoteDir/webapps/todo"
+    command = "sudo -u cchen rm -rf $tomcatRemoteDir/webapps/todo"
 }
 
 task deleteTomcatWorkDir(type: SshExec, dependsOn: shutdownTomcat) {
-    command = "sudo -u tomcat rm -rf $tomcatRemoteDir/work"
+    command = "sudo -u cchen rm -rf $tomcatRemoteDir/work"
 }
 
 task deleteOldArtifacts(dependsOn: [deleteTomcatWebappsDir, deleteTomcatWorkDir]) {
@@ -67,7 +67,7 @@ task copyWarToWebappsDir(type: SshExec, dependsOn: deleteOldArtifacts) {
 }
 
 task startupTomcat(type: SshExec, dependsOn: copyWarToWebappsDir) {
-    command = "sudo -u tomcat $tomcatRemoteDir/bin/startup.sh"
+    command = "sudo -u cchen $tomcatRemoteDir/bin/startup.sh"
 
     doFirst {
         logger.quiet "Starting up remote Tomcat."

@@ -12,7 +12,7 @@ environments {
             sshPort = 22
             port = 8080
             context = 'todo'
-            username = 'manager'
+            username = 'cchen'
             password = 'manager'
         }
     }
@@ -21,9 +21,9 @@ environments {
         server {
             hostname = 'www.ikain.com'
             sshPort = 22
-            port = 8081
+            port = 8080
             context = 'todo'
-            username = 'manager'
+            username = 'cchen'
             password = 'manager'
         }
     }
@@ -32,9 +32,9 @@ environments {
         server {
             hostname = 'www.ikain.com'
             sshPort = 22
-            port = 8082
+            port = 8080
             context = 'todo'
-            username = 'manager'
+            username = 'cchen'
             password = 'manager'
         }
     }
