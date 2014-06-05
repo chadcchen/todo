@@ -8,9 +8,9 @@ binaryRepository {
 environments {
     test {
         server {
-            hostname = 'localhost'
+            hostname = 'www.ikain.com'
             sshPort = 22
-            port = 8099
+            port = 8080
             context = 'todo'
             username = 'manager'
             password = 'manager'
@@ -19,9 +19,9 @@ environments {
 
     uat {
         server {
-            hostname = 'localhost'
+            hostname = 'www.ikain.com'
             sshPort = 22
-            port = 8199
+            port = 8081
             context = 'todo'
             username = 'manager'
             password = 'manager'
@@ -30,9 +30,9 @@ environments {
 
     production {
         server {
-            hostname = 'localhost'
+            hostname = 'www.ikain.com'
             sshPort = 22
-            port = 8299
+            port = 8082
             context = 'todo'
             username = 'manager'
             password = 'manager'
